@@ -57,3 +57,15 @@ const OPENAI_API_KEY = "YOUR_OPENAI_API_KEY";
 ├── script.js        # JavaScript logic for animation, navigation, and search
 └── README.md        # Project documentation
 ```
+## ✨ Project Highlights
+
+- 🌌 **Starry Night Animation** – A stunning animated background with twinkling stars and random shooting stars.
+- 🧭 **Quick Navigation Menu** – Instantly switch between Home, Coding Languages, Practice Platforms, YouTube Tutorials, and About.
+- 🔍 **Smart Search** –  
+  - Searches local knowledge base for pre-defined coding topics (e.g., Linear Search, Binary Search).  
+  - Falls back to **OpenAI API** for advanced coding questions.
+- 📺 **Curated YouTube Tutorials** – Handpicked playlists for Python, JavaScript, Java, and C++ learners.
+- 💡 **Beginner-Friendly** – Organized resources for both learning and practicing coding.
+- 🎯 **Responsive Design** – Adapts seamlessly to different screen sizes and devices.
+- 🪄 **Modal Wish Box** – Simple, interactive modal for additional fun and features.
+
