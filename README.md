@@ -50,8 +50,23 @@ It also features a built-in code search powered by a **local knowledge base** an
 ```javascript
 const OPENAI_API_KEY = "YOUR_OPENAI_API_KEY";
 ```
+
+### **💻 How to Run**
+1. Clone or Download the repository:
+```
+git clone https://github.com/yourusername/cosmic-code-hub.git
+cd cosmic-code-hub
+```
+2. Set your OpenAI API Key (optional, for AI responses):
+- Open script.js
+- Replace "YOUR_OPENAI_API_KEY" with your API key.
+
+3. Open in Browser:
+- Just open index.html in any modern browser.
+  
 ### **📂 File Structure**
-```project-folder/
+```
+project-folder/
 │
 ├── index.html       # Main HTML file
 ├── script.js        # JavaScript logic for animation, navigation, and search
