@@ -1,1 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>COSMIC CODE HUB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      color: #fff;
+      background: #0a0a1a;
+      min-height: 100vh;
+      overflow-x: hidden;
+      text-align: center;
+      position: relative;
+    }
 
+    nav {
+      display: flex;
+      justify-content: center;
+      padding: 2rem 0;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      z-index: 10;
+      position: relative;
+    }
+
+    nav a {
+      color: #a0a0c0;
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 1px;
+      padding: 0.5rem 1rem;
+      border: 1px solid #6a5acd;
+      border-radius: 5px;
+      font-family: 'Orbitron', sans-serif;
+      transition: all 0.3s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: #fff;
+      background: rgba(106, 90, 205, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(106, 90, 205, 0.4);
+    }
+
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 70vh;
+      padding: 0 1rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo-container {
+      margin-bottom: 1rem;
+    }
+
+    .logo {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 3.5rem;
+      letter-spacing: 3px;
+      background: linear-gradient(90deg, #6a5acd, #a78bfa, #6a5acd);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 15px rgba(106, 90, 205, 0.7);
+      animation: glow 2s infinite alternate;
+      line-height: 1.2;
+    }
+
+    .tagline {
+      font-size: 1.3rem;
+      color: #a0a0c0;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .wish-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: linear-gradient(90deg, #6a5acd, #a78bfa);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Orbitron', sans-serif;
+      z-index: 20;
+      box-shadow: 0 0 20px rgba(106, 90, 205, 0.5);
+    }
+
+    .wish-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 25px rgba(167, 139, 250, 0.7);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      background: #0a0a1a;
+      border: 1px solid #6a5acd;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+      margin: 10% auto;
+      padding: 2rem;
+      box-shadow: 0 0 30px rgba(106, 90, 205, 0.7);
+      color: white;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-header h2 {
+      font-family: 'Orbitron', sans-serif;
+      color: #a78bfa;
+      margin: 0;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: #a0a0c0;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .search-box {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 5px;
+      border: 1px solid #6a5acd;
+      background: rgba(15, 12, 41, 0.5);
+      color: white;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .search-btn {
+      background: linear-gradient(90deg, #6a5acd, #a78bfa);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 0.8rem 1.5rem;
+      font-family: 'Orbitron', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .search-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(106, 90, 205, 0.4);
+    }
+
+    .answer-box {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border: 1px solid #6a5acd;
+      border-radius: 5px;
+      background: rgba(15, 12, 41, 0.3);
+      min-height: 200px;
+      max-height: 400px;
+      overflow-y: auto;
+      text-align: left;
+      white-space: pre-wrap;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+
+    .option-button {
+      display: inline-block;
+      margin: 1rem;
+      padding: 0.75rem 1.5rem;
+      border: 2px solid #8a85ff;
+      border-radius: 12px;
+      background: linear-gradient(to bottom, #1b1b3a, #0f0f2a);
+      box-shadow: inset -2px -2px 4px rgba(255, 255, 255, 0.1),
+                  inset 2px 2px 6px rgba(0, 0, 0, 0.6),
+                  2px 2px 4px rgba(0, 0, 0, 0.5);
+      transition: transform 0.1s ease, box-shadow 0.2s;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .option-button a {
+      color: #cfcfff;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    .option-button:hover {
+      transform: translateY(1px);
+      box-shadow: inset -1px -1px 2px rgba(255, 255, 255, 0.15),
+                  inset 1px 1px 3px rgba(0, 0, 0, 0.4),
+                  1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .option-button:active {
+      transform: translateY(2px);
+      box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.7),
+                  inset -1px -1px 2px rgba(255, 255, 255, 0.05);
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 5px #6a5acd;
+      }
+      to {
+        text-shadow: 0 0 20px #a78bfa;
+      }
+    }
+
+    canvas#stars-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: #0a0a1a;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#" onclick="loadPage('home')" class="active">Home</a>
+    <a href="#" onclick="loadPage('languages')">Languages</a>
+    <a href="#" onclick="loadPage('practice')">Practice</a>
+    <a href="#" onclick="loadPage('tutorials')">Tutorials</a>
+    <a href="#" onclick="loadPage('about')">About</a>
+  </nav>
+
+  <div class="main-content" id="main-content">
+    <div class="logo-container">
+      <div class="logo">COSMIC</div>
+      <div class="logo">CODE HUB</div>
+    </div>
+    <div class="tagline">Launch your coding journey into the stars!</div>
+  </div>
+
+  <button class="wish-btn">Make a Wish ✨</button>
+
+  <div class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Cosmic Code Assistant</h2>
+        <button class="close-btn">&times;</button>
+      </div>
+      <input type="text" class="search-box" placeholder="Ask me anything about coding..." />
+      <button class="search-btn">Search</button>
+      <div class="answer-box"></div>
+    </div>
+  </div>
+
+  <canvas id="stars-canvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById('stars-canvas');
+    const ctx = canvas.getContext('2d');
+    resizeCanvas();
+
+    const stars = [];
+    const shootingStars = [];
+
+    for (let i = 0; i < 300; i++) {
+      stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, radius: Math.random() * 1.5, alpha: Math.random(), delta: Math.random() * 0.02 });
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#ffffff';
+      for (let s of stars) {
+        ctx.globalAlpha = s.alpha;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        ctx.fill();
+        s.alpha += s.delta;
+        if (s.alpha <= 0 || s.alpha >= 1) s.delta *= -1;
+      }
+      ctx.globalAlpha = 1;
+      for (let s of shootingStars) {
+        ctx.beginPath();
+        ctx.moveTo(s.x, s.y);
+        ctx.lineTo(s.x + s.length, s.y + s.length / 2);
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        s.x += s.speed;
+        s.y += s.speed / 2;
+      }
+      shootingStars.forEach((s, i) => {
+        if (s.x > canvas.width || s.y > canvas.height) shootingStars.splice(i, 1);
+      });
+    }
+
+    function animate() {
+      drawStars();
+      if (Math.random() < 0.01) {
+        shootingStars.push({ x: Math.random() * canvas.width, y: 0, length: Math.random() * 100 + 50, speed: Math.random() * 10 + 6 });
+      }
+      requestAnimationFrame(animate);
+    }
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+
+    const content = {
+      home: `<div class="logo-container"><div class="logo">COSMIC</div><div class="logo">CODE HUB</div></div><div class="tagline">Launch your coding journey into the stars!</div>`,
+      languages: `<h2>Coding Languages</h2>
+        <div class="option-button"><a href="https://www.learnpython.org/" target="_blank">🐍 Python</a></div>
+        <div class="option-button"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">✨ JavaScript</a></div>
+        <div class="option-button"><a href="https://www.codecademy.com/learn/learn-java" target="_blank">☕ Java</a></div>
+        <div class="option-button"><a href="https://www.learncpp.com/" target="_blank">💻 C++</a></div>`,
+      practice: `<h2>Practice Platforms</h2>
+        <div class="option-button"><a href="https://www.codewars.com/" target="_blank">🧠 Beginner - Codewars</a></div>
+        <div class="option-button"><a href="https://leetcode.com/" target="_blank">🚀 Moderate - LeetCode</a></div>
+        <div class="option-button"><a href="https://www.codeforces.com/" target="_blank">🪐 Advanced - Codeforces</a></div>`,
+      tutorials: `<h2>YouTube Tutorials</h2>
+        <div class="option-button"><a href="https://www.youtube.com/@freecodecamp" target="_blank">📺 Python - freeCodeCamp</a></div>
+        <div class="option-button"><a href="https://www.youtube.com/@Traversymedia" target="_blank">📺 JavaScript - Traversymedia</a></div>
+        <div class="option-button"><a href="https://www.youtube.com/@ProgrammingwithMosh" target="_blank">📺 Java - Mosh</a></div>
+        <div class="option-button"><a href="https://www.youtube.com/@CodeBeauty" target="_blank">📺 C++ - CodeBeauty</a></div>`,
+      about: `<h2>About Cosmic Code Hub</h2>
+        <p>This website is a one-stop launchpad for aspiring coders to explore programming languages, practice their skills, and find the best video tutorials to guide them. Let your journey to the coding cosmos begin here!</p>`
+    };
+
+    function loadPage(page) {
+      document.getElementById('main-content').innerHTML = content[page];
+      document.querySelectorAll('nav a').forEach(a => {
+        a.classList.toggle('active', a.textContent.toLowerCase() === page);
+      });
+    }
+
+    const wishBtn = document.querySelector('.wish-btn');
+    const modal = document.querySelector('.modal');
+    const closeBtn = document.querySelector('.close-btn');
+    const searchBtn = document.querySelector('.search-btn');
+    const searchBox = document.querySelector('.search-box');
+    const answerBox = document.querySelector('.answer-box');
+
+    wishBtn.addEventListener('click', () => modal.style.display = 'block');
+    closeBtn.addEventListener('click', () => modal.style.display = 'none');
+    window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+
+    const codeKnowledge = {
+      "linear search": {
+        explanation: "Linear search checks each element in order until finding the target. Time complexity: O(n).",
+        examples: {
+          python: {
+            code: `def linear_search(arr, target):
+  for i in range(len(arr)):
+    if arr[i] == target:
+      return i
+  return -1`,
+            bestFor: "Learning and small datasets"
+          }
+        }
+      },
+      "binary search": {
+        explanation: "Binary search divides a sorted array to locate a target. Time complexity: O(log n).",
+        examples: {
+          python: {
+            code: `def binary_search(arr, target):
+  low, high = 0, len(arr) - 1
+  while low <= high:
+    mid = (low + high) // 2
+    if arr[mid] == target:
+      return mid
+    elif arr[mid] < target:
+      low = mid + 1
+    else:
+      high = mid - 1
+  return -1`,
+            bestFor: "Sorted arrays"
+          }
+        }
+      }
+    };
+
+    // === Add your OpenAI API key here ===
+    const OPENAI_API_KEY = "YOUR_OPENAI_API_KEY";
+
+    async function fetchFromOpenAI(prompt) {
+      try {
+        const res = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${OPENAI_API_KEY}`
+          },
+          body: JSON.stringify({
+            model: "gpt-3.5-turbo",
+            messages: [
+              { role: "system", content: "You are a helpful coding assistant." },
+              { role: "user", content: prompt }
+            ],
+            max_tokens: 500,
+            temperature: 0.5
+          }),
+        });
+        if (!res.ok) {
+          throw new Error(`OpenAI API error: ${res.status} ${res.statusText}`);
+        }
+        const data = await res.json();
+        return data.choices[0].message.content.trim();
+      } catch (error) {
+        return `Error fetching from OpenAI: ${error.message}`;
+      }
+    }
+
+    async function searchCode() {
+      const query = searchBox.value.trim().toLowerCase();
+      if (!query) return;
+
+      answerBox.innerHTML = "<p>🌌 Cosmic AI is thinking...</p>";
+
+      if (codeKnowledge[query]) {
+        // Show local knowledge answer
+        const result = codeKnowledge[query];
+        let html = `<p>${result.explanation}</p><h3>Code Examples:</h3>`;
+        for (const lang in result.examples) {
+          html += `<h4>${lang}</h4>
+            <p><strong>Best for:</strong> ${result.examples[lang].bestFor}</p>
+            <pre>${result.examples[lang].code}</pre>`;
+        }
+        answerBox.innerHTML = html;
+      } else {
+        // Query OpenAI API
+        const aiResponse = await fetchFromOpenAI(searchBox.value.trim());
+        answerBox.innerHTML = `<pre>${aiResponse}</pre>`;
+      }
+
+      answerBox.scrollTop = answerBox.scrollHeight;
+    }
+
+    searchBtn.addEventListener('click', searchCode);
+    searchBox.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        searchCode();
+      }
+    });
+
+    loadPage('home');
+    animate();
+  </script>
+</body>
+</html>
